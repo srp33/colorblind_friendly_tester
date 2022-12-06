@@ -1,8 +1,10 @@
 # Simulate Deutan Image
+print("Opened R file")
 suppressPackageStartupMessages(library(magick))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(colorblindr))
 
+print("Loaded libraries")
 convert_hex_vector_to_image <- function(hex, dimensions) {
   x = col2rgb(hex)
   
