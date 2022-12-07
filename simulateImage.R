@@ -3,6 +3,8 @@ suppressPackageStartupMessages(library(magick))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(colorblindr))
 
+Sys.setenv(OPENBLAS_NUM_THREADS="1")
+
 convert_hex_vector_to_image <- function(hex, dimensions) {
   x = col2rgb(hex)
   
