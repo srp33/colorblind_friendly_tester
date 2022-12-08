@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:4.2.2
+FROM rocker/tidyverse:4.2.1
 
 RUN install2.r --error magick 
 #RUN ulimit -u 10000 ; install2.r --error magick 
