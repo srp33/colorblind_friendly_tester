@@ -13,8 +13,9 @@ let imageID;
 const e = require('express');
 const { type } = require('os');
 
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/uploads', express.static('uploads'));
+const colorblindPrefix = "/colorblind_friendly_tester"
+app.use(colorblindPrefix+'/public', express.static(process.cwd() + colorblindPrefix+'/public'));
+app.use(colorblindPrefix+'/uploads', express.static('uploads'));
 
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
 
 
-app.post('/upload', /*upload.single('fileupload'),*/ async function (req, res) {
+app.post(colorblindPrefix+'/upload', /*upload.single('fileupload'),*/ async function (req, res) {
   if (!req.body.file) {
     res.status(404).json({ error: 'Please provide an image' });
     console.log("No file found.")
@@ -42,7 +43,7 @@ app.post('/upload', /*upload.single('fileupload'),*/ async function (req, res) {
   //Read base64 into buffer then create new file in /uploads
   imageID =  uuidv4();
   let file = req.body.file.replace(/^data:image\/(png|jpeg);base64,/,"");
-  const targetPath = path.join(__dirname, `./uploads/${imageID}.png`);
+  const targetPath = path.join(__dirname, colorblindPrefix, `./uploads/${imageID}.png`);
   fs.writeFileSync(targetPath, file, {'encoding': 'base64'});
   //const buffer = fs.readFileSync('buffer64.png');
   //fs.writeFileSync(targetPath, buffer);
@@ -57,7 +58,7 @@ app.post('/upload', /*upload.single('fileupload'),*/ async function (req, res) {
 
 
 
-app.post("/convert", async(req, res)=> {
+app.post(colorblindPrefix+"/convert", async(req, res)=> {
   console.log("converting...");
   if(imageID){
     exec('Rscript simulateImage.R '+imageID, function (error, stdout, stderr) {
@@ -85,14 +86,14 @@ app.post("/convert", async(req, res)=> {
   }
 });
 
-app.get("uploads/"+imageID+".png", (req, res) => {
+app.get(colorblindPrefix+"uploads/"+imageID+".png", (req, res) => {
   
   console.log("sendOver");
   res.sendFile(path.join(__dirname, "/uploads/"+imageID+".png"));
 });
 
 
-app.get("/", function (req, res) {
+app.get(colorblindPrefix+"/", function (req, res) {
   
   // if (!image){
   //   image = "public/converted_image.png";

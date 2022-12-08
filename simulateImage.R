@@ -1,10 +1,8 @@
 # Simulate Deutan Image
-print("Opened R file")
 suppressPackageStartupMessages(library(magick))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(colorblindr))
 
-print("Loaded libraries")
 convert_hex_vector_to_image <- function(hex, dimensions) {
   x = col2rgb(hex)
   
@@ -71,4 +69,3 @@ args = commandArgs(trailingOnly = TRUE)
 in_file_path =  paste0(getwd(), "/uploads/",toString(args[1]),".png")
 out_file_path =  paste0(getwd(),"/uploads/",toString(args[1]),".png")
 create_simulated_image(in_file_path,out_file_path)
-print("R script ran!")
