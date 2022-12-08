@@ -10,14 +10,14 @@ RUN apt-get update \
 RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash - && \
     apt-get install -y nodejs
 
-#WORKDIR /app
+WORKDIR /app
 
-#COPY package.json package.json
-#COPY package-lock.json package-lock.json
+COPY package.json package.json
+COPY package-lock.json package-lock.json
 
-#RUN npm install
+RUN npm install
 
-#COPY . .
-#RUN chmod -R 777 /app/
+COPY . .
+RUN chmod -R 777 /app/
 
-#CMD ["node", "app.js"]
+CMD ["node", "app.js"]
