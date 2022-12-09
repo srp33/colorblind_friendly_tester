@@ -1,5 +1,3 @@
-
-
 //Display images on website or uploaded by user 
 let myImage = document.getElementById("uploadedFile");
 let uploadForm = document.getElementById("uploadForm");
@@ -45,7 +43,7 @@ uploadForm.onsubmit = async function(e) {
     console.log("uploaded form.");
     jQuery.ajax({
         method: 'POST',
-        url: '/upload',
+        url: 'colorblind_friendly_tester/upload',
         data: {
             file: base64data
         }
@@ -80,7 +78,7 @@ function simulateImage(){
     let output_image = document.getElementById("output_image");
     output_image.src = "public/converted_image.png";
     if (imageID){ //check if exists
-        output_image.src = "uploads/"+imageID+".png";
+        output_image.src = "colorblind_friendly_tester/uploads/"+imageID+".png";
     }
     else {
         console.log("isn't there");
@@ -103,7 +101,7 @@ async function predict_image() {
         .expandDims() // expand tensor rank
         .toFloat();
 
-    const model = await tf.loadGraphModel('/public/savedModel/model.json');
+    const model = await tf.loadGraphModel('colorblind_friendly_tester/public/savedModel/model.json');
     console.log("Loaded model");
 
     pred = model.predict(tfImg);
