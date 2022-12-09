@@ -76,7 +76,9 @@ app.post("/" + colorblindPrefix + "/convert", async(req, res)=> {
       else if (stdout) {
         console.log(stdout);
         res.status(204).send();
+        return;
       }
+      res.status(204).send();
       return;
     });
   } else {
