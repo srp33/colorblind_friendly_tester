@@ -43,7 +43,7 @@ uploadForm.onsubmit = async function(e) {
     console.log("uploaded form.");
     jQuery.ajax({
         method: 'POST',
-        url: 'colorblind_friendly_tester/upload',
+        url: '/colorblind_friendly_tester/upload',
         data: {
             file: base64data
         }
