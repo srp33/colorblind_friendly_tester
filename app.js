@@ -14,16 +14,16 @@ const e = require('express');
 const { type } = require('os');
 
 const colorblindPrefix = "colorblind_friendly_tester"
-app.use("/"+colorblindPrefix+'/public', express.static(process.cwd() + colorblindPrefix+'/public'));
-app.use("/"+colorblindPrefix+'/uploads', express.static(process.cwd() + colorblindPrefix+'/uploads'));
+
+app.use("/" + colorblindPrefix + '/public', express.static(process.cwd() + '/public'));
+app.use("/" + colorblindPrefix + '/uploads', express.static(process.cwd() + '/uploads'));
 
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
 //app.set('view engine', 'ejs');
 
-
-
-app.post("/"+colorblindPrefix+'/upload', /*upload.single('fileupload'),*/ async function (req, res) {
+app.post("/" + colorblindPrefix + '/upload', /*upload.single('fileupload'),*/ async function (req, res) {
+console.log("got here");
   if (!req.body.file) {
     res.status(404).json({ error: 'Please provide an image' });
     console.log("No file found.")
@@ -48,7 +48,6 @@ app.post("/"+colorblindPrefix+'/upload', /*upload.single('fileupload'),*/ async 
   //const buffer = fs.readFileSync('buffer64.png');
   //fs.writeFileSync(targetPath, buffer);
 
-
   console.log("Going through upload...")
   
   res.status(200).json({ id: imageID });
@@ -58,7 +57,7 @@ app.post("/"+colorblindPrefix+'/upload', /*upload.single('fileupload'),*/ async 
 
 
 
-app.post("/"+colorblindPrefix+"/convert", async(req, res)=> {
+app.post("/" + colorblindPrefix + "/convert", async(req, res)=> {
   console.log("converting...");
   if(imageID){
     exec('Rscript simulateImage.R '+imageID, function (error, stdout, stderr) {
@@ -86,15 +85,11 @@ app.post("/"+colorblindPrefix+"/convert", async(req, res)=> {
   }
 });
 
-app.get("/"+colorblindPrefix+"uploads/"+imageID+".png", (req, res) => {
-  
-  console.log("sendOver");
-  res.sendFile(path.join(__dirname, "/uploads/"+imageID+".png"));
+app.get("/" + colorblindPrefix + "uploads/" + imageID + ".png", (req, res) => {
+  res.sendFile(path.join(__dirname, "/uploads/" + imageID + ".png"));
 });
 
-
-app.get("/"+colorblindPrefix+"/", function (req, res) {
-  
+app.get("/" + colorblindPrefix + "/", function (req, res) {
   // if (!image){
   //   image = "public/converted_image.png";
   // }
@@ -104,9 +99,9 @@ app.get("/"+colorblindPrefix+"/", function (req, res) {
   // });
   res.sendFile(process.cwd() + "/index.html");
 });
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, function () {
   console.log("Server is running on " + port);
 });
-
