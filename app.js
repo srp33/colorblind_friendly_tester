@@ -48,8 +48,7 @@ console.log("got here");
   //const buffer = fs.readFileSync('buffer64.png');
   //fs.writeFileSync(targetPath, buffer);
 
-  console.log("Going through upload...")
-  
+  console.log("Going through upload. Sent image to "+targetPath);
   res.status(200).json({ id: imageID });
   
   //res.status(204).send();
@@ -58,7 +57,7 @@ console.log("got here");
 
 
 app.post("/" + colorblindPrefix + "/convert", async(req, res)=> {
-  console.log("converting...");
+  console.log("Converting image...");
   if(imageID){
     exec('Rscript simulateImage.R '+imageID, function (error, stdout, stderr) {
       if (error) {
@@ -79,6 +78,7 @@ app.post("/" + colorblindPrefix + "/convert", async(req, res)=> {
         return;
       }
       res.status(204).send();
+      console.log("R script ran. Sending simulated image: "+imageID);
       return;
     });
   } else {

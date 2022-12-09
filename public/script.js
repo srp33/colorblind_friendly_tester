@@ -79,6 +79,7 @@ function simulateImage(){
     output_image.src = "colorblind_friendly_tester/public/converted_image.png";
     if (imageID){ //check if exists
         output_image.src = "colorblind_friendly_tester/uploads/"+imageID+".png";
+        console.log("Display the simulated image.");
     }
     else {
         console.log("isn't there");
