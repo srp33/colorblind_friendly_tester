@@ -3,11 +3,6 @@ suppressPackageStartupMessages(library(magick))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(colorblindr))
 
-<<<<<<< HEAD
-=======
-Sys.setenv(OPENBLAS_NUM_THREADS="1")
-
->>>>>>> 9e2833a406c5b83d2d207b53af5f57e3d6eb995e
 convert_hex_vector_to_image <- function(hex, dimensions) {
   x = col2rgb(hex)
   
