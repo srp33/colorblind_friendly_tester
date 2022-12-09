@@ -20,5 +20,4 @@ RUN npm install
 COPY . .
 RUN chmod -R 777 /app/
 
-#CMD ["node", "app.js"]
-CMD ["/bin/bash"]
+CMD ["node", "app.js"]
