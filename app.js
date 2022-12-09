@@ -18,7 +18,7 @@ const colorblindPrefix = "colorblind_friendly_tester"
 app.use("/" + colorblindPrefix + '/public', express.static(process.cwd() + '/public'));
 app.use("/" + colorblindPrefix + '/uploads', express.static(process.cwd() + '/uploads'));
 
-app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
+app.use(bodyParser.urlencoded({limit: '5mb', extended: false}));
 
 //app.set('view engine', 'ejs');
 
