@@ -5,7 +5,7 @@
   <title>Predicting Scientific Figures as Colorblind Friendly or Not</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="/public/page_styling.css">
+  <link rel="stylesheet" type="text/css" href="/colorblind_friendly_tester/public/page_styling.css">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
@@ -20,7 +20,7 @@
       </form>
       <p>Your uploaded image will display below:</p>
       <div id="input_image_container">
-        <img src="/public/defaultimage.png" id="input_image" style="top:10vh;">
+        <img src="/colorblind_friendly_tester/public/defaultimage.png" id="input_image" style="top:10vh;">
       </div>
     </div>
     <i class="arrow right"></i>
@@ -30,7 +30,7 @@
       </form>
       <button name="show_image" id="show_simulated" onclick="simulateImage()">SHOW SIMULATED IMAGE</button>
       <div id="input_image_container">
-        <img src="/public/converted_image.png" id="output_image">
+        <img src="/colorblind_friendly_tester/public/converted_image.png" id="output_image">
       </div>
       <p>This image is displayed how someone with 80% deuteranopia would see it.</p>
     </div>
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <script src="/public/script.js"></script>
+  <script src="/colorblind_friendly_tester/public/script.js"></script>
 </body>
 
 </html>
