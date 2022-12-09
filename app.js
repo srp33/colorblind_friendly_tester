@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
 
 
-app.post"/"+colorblindPrefix+'/upload', /*upload.single('fileupload'),*/ async function (req, res) {
+app.post("/"+colorblindPrefix+'/upload', /*upload.single('fileupload'),*/ async function (req, res) {
   if (!req.body.file) {
     res.status(404).json({ error: 'Please provide an image' });
     console.log("No file found.")
