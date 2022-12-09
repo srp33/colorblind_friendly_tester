@@ -43,7 +43,7 @@ console.log("got here");
   //Read base64 into buffer then create new file in /uploads
   imageID =  uuidv4();
   let file = req.body.file.replace(/^data:image\/(png|jpeg);base64,/,"");
-  const targetPath = path.join(__dirname, colorblindPrefix, `uploads/${imageID}.png`);
+  const targetPath = path.join(__dirname, `uploads/${imageID}.png`);
   fs.writeFileSync(targetPath, file, {'encoding': 'base64'});
   //const buffer = fs.readFileSync('buffer64.png');
   //fs.writeFileSync(targetPath, buffer);
