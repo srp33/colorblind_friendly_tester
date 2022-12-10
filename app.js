@@ -9,7 +9,6 @@ var exec = require('child_process').exec;
 const { v4: uuidv4 } = require('uuid');
 
 let imageID;
-//const makeFilePath = require('./makeFilePath');
 const e = require('express');
 const { type } = require('os');
 
@@ -20,13 +19,11 @@ app.use("/" + colorblindPrefix + '/uploads', express.static(process.cwd() + '/up
 
 app.use(bodyParser.urlencoded({limit: '5mb', extended: false}));
 
-//app.set('view engine', 'ejs');
 
-app.post("/" + colorblindPrefix + '/upload', /*upload.single('fileupload'),*/ async function (req, res) {
-console.log("got here");
+app.post("/" + colorblindPrefix + '/upload', async function (req, res) {
+
   if (!req.body.file) {
     res.status(404).json({ error: 'Please provide an image' });
-    console.log("No file found.")
     return;
   }
 
@@ -45,44 +42,32 @@ console.log("got here");
   let file = req.body.file.replace(/^data:image\/(png|jpeg);base64,/,"");
   const targetPath = path.join(__dirname, `uploads/${imageID}.png`);
   fs.writeFileSync(targetPath, file, {'encoding': 'base64'});
-  //const buffer = fs.readFileSync('buffer64.png');
-  //fs.writeFileSync(targetPath, buffer);
 
-  console.log("Going through upload. Sent image to "+targetPath);
   res.status(200).json({ id: imageID });
   
-  //res.status(204).send();
 });
 
 
 
 app.post("/" + colorblindPrefix + "/convert", async(req, res)=> {
-  console.log("Converting image...");
   if(imageID){
     exec('Rscript simulateImage.R '+imageID, function (error, stdout, stderr) {
       if (error) {
-        console.log("error");
-        console.log(error);
         res.send(error);
         return;
       }
       else if (stderr) {
-        console.log("stderr")
-        console.log(stderr);
         res.send(stderr);
         return;
       }
       else if (stdout) {
-        console.log(stdout);
         res.status(204).send();
         return;
       }
       res.status(204).send();
-      console.log("R script ran. Sending simulated image: "+imageID);
       return;
     });
   } else {
-    console.log("No image was provided");
     res.status(204).send();
   }
 });
@@ -92,13 +77,6 @@ app.get("/" + colorblindPrefix + "uploads/" + imageID + ".png", (req, res) => {
 });
 
 app.get("/" + colorblindPrefix + "/", function (req, res) {
-  // if (!image){
-  //   image = "public/converted_image.png";
-  // }
-
-  // res.render('index', {
-  //   image: image
-  // });
   res.sendFile(process.cwd() + "/index.html");
 });
 
