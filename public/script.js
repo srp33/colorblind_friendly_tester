@@ -2,6 +2,15 @@
 let myImage = document.getElementById("uploadedFile");
 let uploadForm = document.getElementById("uploadForm");
 
+
+myImage.onchange = function() {
+    if(this.files[0].size > 2097152){
+       alert("Your uploaded file is too big. Please choose a file under 5MBs");
+       this.value = "";
+    };
+};
+
+
 function getBase64(file) {
     return new Promise(function(resolve) {
         var reader = new FileReader();
@@ -13,6 +22,11 @@ function getBase64(file) {
 }
 
 
+function simulateImage(imageID="colorblind_friendly_tester/public/converted_image.png"){
+    let output_image = document.getElementById("output_image");
+    output_image.src = imageID;
+    document.getElementById("input_image_container").style.display = "block";
+}
 
 async function display() {
     let input_image = document.getElementById("input_image");
@@ -41,7 +55,7 @@ uploadForm.onsubmit = async function(e) {
     .then(function (res) {
         if (res.id){
             imageID = res.id;
-            return;
+            simulateImage(imageID);
         } 
         throw new Error('Something went wrong');
     })
@@ -51,17 +65,6 @@ uploadForm.onsubmit = async function(e) {
 }
 
 
-
-
-function simulateImage(){
-    let output_image = document.getElementById("output_image");
-    output_image.src = "colorblind_friendly_tester/public/converted_image.png";
-    if (imageID){ //check if exists
-        output_image.src = "colorblind_friendly_tester/uploads/"+imageID+".png";
-    }
-    document.getElementById("input_image_container").style.display = "block";
-
-}
 async function predict_image() {
     let input = document.getElementById("output_image");
 

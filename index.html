@@ -25,10 +25,11 @@
     </div>
     <i class="arrow right"></i>
     <div class="container" id="simulatedImageContainer">
-      <form method="post" action="/colorblind_friendly_tester/convert" id="simulateForm">
+      <!--<form method="post" action="/colorblind_friendly_tester/convert" id="simulateForm">
         <button type="submit" name="convert_image">SIMULATE IMAGE</button>
-      </form>
-      <button name="show_image" id="show_simulated" onclick="simulateImage()">SHOW SIMULATED IMAGE</button>
+      </form> !-->
+      <!--<button name="show_image" id="show_simulated" onclick="simulateImage()">SHOW SIMULATED IMAGE</button>!-->
+      <p>Your simulated image will display below:</p>
       <div id="input_image_container">
         <img src="/colorblind_friendly_tester/public/converted_image.png" id="output_image">
       </div>
@@ -39,12 +40,10 @@
       <p>Check how colorblind-friendly your image is! </p>
       <input type="button" name="predict" onclick="predict_image()" value="PREDICT">
       <div class="output_screen">
-        <div id="output_chart"></div>
         <div id="output_text"></div>
       </div>
     </div>
   </div>
-
   <script src="/colorblind_friendly_tester/public/script.js"></script>
 </body>
 

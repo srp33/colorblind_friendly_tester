@@ -43,13 +43,7 @@ app.post("/" + colorblindPrefix + '/upload', async function (req, res) {
   const targetPath = path.join(__dirname, `uploads/${imageID}.png`);
   fs.writeFileSync(targetPath, file, {'encoding': 'base64'});
 
-  res.status(200).json({ id: imageID });
-  
-});
 
-
-
-app.post("/" + colorblindPrefix + "/convert", async(req, res)=> {
   if(imageID){
     exec('Rscript simulateImage.R '+imageID, function (error, stdout, stderr) {
       if (error) {
@@ -61,16 +55,42 @@ app.post("/" + colorblindPrefix + "/convert", async(req, res)=> {
         return;
       }
       else if (stdout) {
-        res.status(204).send();
-        return;
+        console.log(stdout);
       }
-      res.status(204).send();
-      return;
     });
   } else {
-    res.status(204).send();
+    res.status(404).json({ error: 'No ImageID' });
+    return;
   }
+
+  res.status(200).json({ id: imageID });
+  return;
 });
+
+
+
+// app.post("/" + colorblindPrefix + "/convert", async(req, res)=> {
+//   if(imageID){
+//     exec('Rscript simulateImage.R '+imageID, function (error, stdout, stderr) {
+//       if (error) {
+//         res.send(error);
+//         return;
+//       }
+//       else if (stderr) {
+//         res.send(stderr);
+//         return;
+//       }
+//       else if (stdout) {
+//         res.status(204).send();
+//         return;
+//       }
+//       res.status(204).send();
+//       return;
+//     });
+//   } else {
+//     res.status(204).send();
+//   }
+// });
 
 app.get("/" + colorblindPrefix + "uploads/" + imageID + ".png", (req, res) => {
   res.sendFile(path.join(__dirname, "/uploads/" + imageID + ".png"));
