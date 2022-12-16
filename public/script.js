@@ -4,7 +4,7 @@ let uploadForm = document.getElementById("uploadForm");
 
 
 myImage.onchange = function() {
-    if(this.files[0].size > 2097152){
+    if(this.files[0].size > 5242880){
        alert("Your uploaded file is too big. Please choose a file under 5MBs");
        this.value = "";
     };
