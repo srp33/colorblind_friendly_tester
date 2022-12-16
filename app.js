@@ -58,9 +58,6 @@ app.post("/" + colorblindPrefix + '/upload', async function (req, res) {
         console.log(stdout);
       }
     });
-  } else {
-    res.status(404).json({ error: 'No ImageID' });
-    return;
   }
 
   res.status(200).json({ id: imageID });

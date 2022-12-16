@@ -56,6 +56,7 @@ uploadForm.onsubmit = async function(e) {
         if (res.id){
             imageID = res.id;
             simulateImage(imageID);
+            return;
         } 
         throw new Error('Something went wrong');
     })
