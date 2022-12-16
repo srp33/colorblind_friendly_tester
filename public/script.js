@@ -21,11 +21,13 @@ function getBase64(file) {
     })
 }
 
-
 function simulateImage(imageID="colorblind_friendly_tester/public/converted_image.png"){
+    document.getElementById("loader").style.display = "none";
+
     let output_image = document.getElementById("output_image");
-    output_image.src = imageID;
-    document.getElementById("input_image_container").style.display = "block";
+
+    output_image.src = "/colorblind_friendly_tester/uploads/"+imageID+".png";
+    output_image.style.display = "inline";
 }
 
 async function display() {
@@ -45,6 +47,9 @@ uploadForm.onsubmit = async function(e) {
     if (myImage.files[0]){
         base64data= await getBase64(myImage.files[0]);
     }
+    document.getElementById("loader").style.display = "inline";
+    document.getElementById("output_image").style.display = "none";
+    document.getElementById("simulated_image_text").style.visibility = "hidden";
     jQuery.ajax({
         method: 'POST',
         url: '/colorblind_friendly_tester/upload',
@@ -56,6 +61,7 @@ uploadForm.onsubmit = async function(e) {
         if (res.id){
             imageID = res.id;
             simulateImage(imageID);
+            document.getElementById("simulated_image_text").style.visibility = "visible";
             return;
         } 
         throw new Error('Something went wrong');
@@ -64,7 +70,6 @@ uploadForm.onsubmit = async function(e) {
         alert("No image was uploaded. Please try again.");
     })
 }
-
 
 async function predict_image() {
     let input = document.getElementById("output_image");

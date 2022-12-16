@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 <body>
   <header>Check Out Our Model in Practice!</header>
   <div class="flow_box">
@@ -31,20 +32,49 @@
       <!--<button name="show_image" id="show_simulated" onclick="simulateImage()">SHOW SIMULATED IMAGE</button>!-->
       <p>Your simulated image will display below:</p>
       <div id="input_image_container">
+        <div id="loader" class="center"></div>
         <img src="/colorblind_friendly_tester/public/converted_image.png" id="output_image">
       </div>
-      <p>This image is displayed how someone with 80% deuteranopia would see it.</p>
+      <p id="simulated_image_text">This image is displayed how someone with 80% deuteranopia would see it.</p>
     </div>
     <i class="arrow right"></i>
     <div class="container" id="predictImageContainer">
       <p>Check how colorblind-friendly your image is! </p>
-      <input type="button" name="predict" onclick="predict_image()" value="PREDICT">
+      <button name="predict" onclick="predict_image()">PREDICT</button>
       <div class="output_screen">
         <div id="output_text"></div>
       </div>
     </div>
   </div>
+  <div class="footer">
+    <div class="footer_logo">
+      <img src="https://brightspotcdn.byu.edu/e4/0a/b679ee0a41d9b1675fc78cd03239/byu-logo-white-small.svg" alt="BYU">
+    </div>
+    <div class="footer_content">
+      <div class="github">
+        <span>
+          <a href="https://github.com/srp33/colorblind_friendly_tester">
+            GitHub for Website
+          </a>
+        </span>
+         | 
+        <span>
+          <a href="https://github.com/Harlan144/CVDMachineLearning">
+            GitHub for Machine Learning Model
+          </a>
+        </span>
+      </div>
+      <div class="piccoloSite">
+        <span>
+          <a href="https://piccolo.byu.edu">
+            Piccolo Lab Website
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
   <script src="/colorblind_friendly_tester/public/script.js"></script>
+  
 </body>
 
 </html>

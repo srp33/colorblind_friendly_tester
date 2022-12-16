@@ -17,6 +17,7 @@ const colorblindPrefix = "colorblind_friendly_tester"
 app.use("/" + colorblindPrefix + '/public', express.static(process.cwd() + '/public'));
 app.use("/" + colorblindPrefix + '/uploads', express.static(process.cwd() + '/uploads'));
 
+
 app.use(bodyParser.urlencoded({limit: '5mb', extended: false}));
 
 
@@ -55,39 +56,18 @@ app.post("/" + colorblindPrefix + '/upload', async function (req, res) {
         return;
       }
       else if (stdout) {
-        console.log(stdout);
+        res.status(200).json({ id: imageID });
+        return;
       }
     });
+
+  } else {
+    console.log("No imageID.");
+    res.status(404).json({ errror: "No imageID." });
+    return;
   }
-
-  res.status(200).json({ id: imageID });
-  return;
+  
 });
-
-
-
-// app.post("/" + colorblindPrefix + "/convert", async(req, res)=> {
-//   if(imageID){
-//     exec('Rscript simulateImage.R '+imageID, function (error, stdout, stderr) {
-//       if (error) {
-//         res.send(error);
-//         return;
-//       }
-//       else if (stderr) {
-//         res.send(stderr);
-//         return;
-//       }
-//       else if (stdout) {
-//         res.status(204).send();
-//         return;
-//       }
-//       res.status(204).send();
-//       return;
-//     });
-//   } else {
-//     res.status(204).send();
-//   }
-// });
 
 app.get("/" + colorblindPrefix + "uploads/" + imageID + ".png", (req, res) => {
   res.sendFile(path.join(__dirname, "/uploads/" + imageID + ".png"));
@@ -100,5 +80,5 @@ app.get("/" + colorblindPrefix + "/", function (req, res) {
 const port = process.env.PORT || 3000;
 
 app.listen(port, function () {
-  console.log("Server is running on " + port);
+  console.log("Server is running!");
 });
